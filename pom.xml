@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.tinizine.azoomee</groupId>
+	<artifactId>lib-auth</artifactId>
+	<version>0.1.0</version>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.2.2.RELEASE</version>
+	</parent>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+	        <groupId>org.springframework.data</groupId>
+	        <artifactId>spring-data-redis</artifactId>
+	        <scope>provided</scope>
+	    </dependency>
+		<dependency>
+			<groupId>com.tinizine.azoomee</groupId>
+			<artifactId>lib-jwt-signer</artifactId>
+			<version>0.1.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.tinizine.azoomee</groupId>
+			<artifactId>lib-azoomee-commons</artifactId>
+			<version>0.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.tinizine.azoomee</groupId>
+			<artifactId>lib-service-discovery</artifactId>
+			<version>0.1.4</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.googlecode.jsontoken</groupId>
+			<artifactId>jsontoken</artifactId>
+			<version>1.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>servlet-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.google.collections</groupId>
+					<artifactId>google-collections</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.httpcomponents</groupId>
+					<artifactId>httpcore</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>	
+		
+		
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.9.5</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.3.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+			
+
+	</dependencies>
+
+	<scm>
+		<connection>scm:git:git://localhost/${basedir}</connection>
+	</scm>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>1.1</version>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>create</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+						<manifestEntries>
+							<git-SHA-1>${buildNumber}</git-SHA-1>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+		<finalName>${project.artifactId}-${project.version}-${buildNumber}</finalName>
+	</build>
+
+
+</project>
